@@ -8,6 +8,7 @@ import AllLinks from './views/links/AllLinks.vue'
 import EditLink from './views/links/EditLink.vue'
 import CreateLink from './views/links/CreateLink.vue'
 import Results from './views/links/Results.vue'
+import * as auth from './services/AuthService'
 
 Vue.use(Router)
 
@@ -27,12 +28,26 @@ export default new Router({
     {
       path: '/links',
       name: 'links-all',
-      component: AllLinks
+      component: AllLinks,
+      beforeEnter:(to, from, next)=>{
+          if (auth.isLoggedIn()){
+              next()
+          }else{
+              next('/login')
+          }
+      }
     },
     {
       path: '/links/new',
       name: 'link-create',
-      component: CreateLink
+      component: CreateLink,
+      beforeEnter:(to, from, next)=>{
+          if (auth.isLoggedIn()){
+              next()
+          }else{
+              next('/login')
+          }
+      }
     },
     {
       path: '/links/:id',
@@ -47,12 +62,26 @@ export default new Router({
     {
       path: '/results',
       name: 'results',
-      component: Results
+      component: Results,
+      beforeEnter:(to, from, next)=>{
+          if (auth.isLoggedIn()){
+              next()
+          }else{
+              next('/login')
+          }
+      }
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      beforeEnter:(to, from, next)=>{
+          if (!auth.isLoggedIn()){
+              next()
+          }else{
+              next('/')
+          }
+      }
     },
     {
       path:'*',

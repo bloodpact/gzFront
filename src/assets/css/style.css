@@ -22,3 +22,10 @@ form.custom-form{
     margin-right: auto;
     margin-left: auto;
 }
+.card.custom{
+    position: inherit;
+}
+.card-elements{
+    display: flex;
+    flex-wrap: wrap;
+}

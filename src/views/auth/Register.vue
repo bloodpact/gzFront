@@ -38,7 +38,7 @@
             onSubmit: function (e) {
                 e.preventDefault();
                 auth.register(this.name, this.email, this.password, this.password2)
-                this.$router.push({name: 'links'})
+                this.$router.push({name: 'links-all'})
             }
         }
     }

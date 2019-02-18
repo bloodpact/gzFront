@@ -1,25 +1,22 @@
 import store from '../store'
-import axios from 'axios'
+import jwt from 'jsonwebtoken'
+import {axiosSetup}  from './RequestService'
 /* eslint-disable */
 export function isLoggedIn() {
-    const token = localStorage.getItem(token)
+    const token = localStorage.getItem('token');
     return token != null;
 }
 
-export function  login(email, password) {
+export function login(email, password) {
     let data = {
         email: email,
         password: password
-    }
-   axios.post("http://localhost:5000/users/login", data)
-        .then((response) => {
-            // console.log(response.data)
-            //возвращаем айди для стэйта, чтобы было видно нужные линкс
-            getUserId(response.data)
-        })
-        .catch((err)=>{
-            // console.log(err.response.data[2].message)
-        })
+    };
+    return axiosSetup().post('/users/login', data)
+}
+export function logout() {
+    localStorage.clear();
+    store.dispatch('authenticate');
 }
 
 export function register(name, email, password, password2) {
@@ -28,22 +25,43 @@ export function register(name, email, password, password2) {
         email: email,
         password: password,
         password2:password2
-    }
-    axios.post("http://localhost:5000/users/register", data)
+    };
+    axiosSetup().post('/users/register', data)
         .then((response) => {
-            setToken(response)
+            console.log(response)
+        })
+        .catch((err)=>{
+            console.log(err)
         })
 }
 
 export function setToken(token) {
-    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('token',token);
     store.dispatch('authenticate');
+}
+export function getToken() {
+    return localStorage.getItem('token')
 }
 
 export function getUsername() {
-    return 'Me';
+    const token = decodeToken();
+    if (!token){
+        return null
+    }
+    return token.name
 }
 
-export function getUserId(id) {
-       return id;
+export function getUserId() {
+    const token = decodeToken();
+    if (!token){
+        return null
+    }
+    return token._id
+}
+export function decodeToken() {
+    const token = getToken();
+    if(!token){
+        return null
+    }
+    return jwt.decode(token)
 }

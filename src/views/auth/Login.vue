@@ -12,7 +12,6 @@
             <button type="submit" class="btn btn-secondary">Submit</button>
         </form>
         <p>{{errorMsg}}</p>
-        <p>{{id}}</p>
     </div>
 </template>
 
@@ -24,18 +23,23 @@
             return{
                 email:'',
                 password:'',
-                errorMsg:null,
-                id:null
+                errorMsg:null
             }
         },
         name: 'login',
         methods:{
             onSubmit:  function (e) {
+                this.errorMsg = null;
                 e.preventDefault();
-                this.$store.dispatch('auth', {email:this.email, password:this.password})
-
-//                    this.$router.push({name: 'links-all'})
-//                    console.log(this.errorMsg)
+                auth.login(this.email, this.password)
+                        .then((response) => {
+                const token =  response.data.token;
+                auth.setToken(token)
+                this.$router.push({name: 'links-all'});
+            })
+                .catch((err)=>{
+                    this.errorMsg = err.response.data[2].message
+            })
 
             }
         }
