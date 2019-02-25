@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form class="custom-form" v-on:submit="onSubmit">
+        <form class="custom-form" v-on:submit.prevent="onSubmit">
             <div class="form-group">
                 <label for="wordFind">Word to find</label>
                 <input type="text" v-model="wordFind" class="form-control" id="wordFind">
@@ -30,8 +30,7 @@
         },
         name: 'login',
         methods:{
-            onSubmit:  function (e) {
-                e.preventDefault();
+            onSubmit() {
                 links.createLinks(this.wordFind, this.$store.state.userId, this.dateFrom, this.dateTo);
                 this.$router.push({name: 'links-all'});
             }

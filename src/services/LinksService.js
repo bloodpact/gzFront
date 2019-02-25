@@ -1,9 +1,11 @@
 import store from '../store'
 import {axiosSetup}  from './RequestService'
+import {gzAxiosSetup}  from './GzRequestService'
+import * as auth from './AuthService'
+
 /* eslint-disable */
-export async function getLinks() {
-    const result = await axiosSetup().get('links', {params: { user: store.state.userId}})
-    return result
+export  function getLinks() {
+    return  axiosSetup().get('links', {params: { user: store.state.userId}})
 }
 export function createLinks(wordFind, user, dateFrom, dateTo) {
     let data = {
@@ -17,13 +19,20 @@ export function createLinks(wordFind, user, dateFrom, dateTo) {
             console.log(err)
         })
 }
-export async function updateLink(wordFind, id, dateFrom, dateTo) {
-    const result = axiosSetup().put("links/"+id,{wordFind, id, dateFrom, dateTo})
-    return result
+export  function updateLink(wordFind, id, dateFrom, dateTo) {
+    return   axiosSetup().put("links/"+id,{wordFind, id, dateFrom, dateTo}).then(res=>{console.log(res)})
 }
 export function deleteLink(id) {
     return axiosSetup().delete("links/"+id)
 }
-export function findLink(id) {
-    return axiosSetup().get("links/"+id)
+export  function findLink(id) {
+    return  axiosSetup().get("links/"+id)
+}
+export function findTenders(from ,to) {
+    const id = auth.getUserId()
+    return  axiosSetup().get("results", {params: {
+        user: store.state.userId,
+        from: from,
+        to: to
+    }})
 }

@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     isLoggedIn:false,
     url:'http://localhost:5000',
+    gzUrl:'http://zakupki.gov.ru/epz/order/quicksearch/rss',
     userId:null,
     userName:null
   },

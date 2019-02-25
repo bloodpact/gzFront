@@ -50,7 +50,7 @@ export default new Router({
       }
     },
     {
-      path: '/links/:id',
+      path: '/links/edit/:id',
       name: 'link-edit',
       component: EditLink
     },
