@@ -1,18 +1,18 @@
 import store from '../store'
 import {axiosSetup}  from './RequestService'
-import {gzAxiosSetup}  from './GzRequestService'
 import * as auth from './AuthService'
 
 /* eslint-disable */
 export  function getLinks() {
     return  axiosSetup().get('links', {params: { user: store.state.userId}})
 }
-export function createLinks(wordFind, user, dateFrom, dateTo) {
+export function createLinks(wordFind, user, dateFrom, dateTo, check24) {
     let data = {
-        wordFind:wordFind,
-        id:user,
+        wordFind: wordFind,
+        id: user,
         dateFrom: dateFrom,
-        dateTo: dateTo
+        dateTo: dateTo,
+        check24: check24
     };
     return axiosSetup().post('links', data)
         .catch((err)=>{

@@ -33,14 +33,13 @@
                 e.preventDefault();
                 auth.login(this.email, this.password)
                         .then((response) => {
-                const token =  response.data.token;
-                auth.setToken(token)
-                this.$router.push({name: 'links-all'});
-            })
+                        const token =  response.data.token;
+                        auth.setToken(token)
+                        this.$router.push({name: 'links-all'});
+                })
                 .catch((err)=>{
                     this.errorMsg = err.response.data[2].message
-            })
-
+                 })
             }
         }
     }

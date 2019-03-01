@@ -6,12 +6,12 @@
                 <input type="text" v-model="linkId.wordFind" class="form-control" id="wordFind">
             </div>
             <div class="form-group">
-                <label for="dateFrom">Date from</label>
-                <input type="text" v-model="linkId.dateFrom"  class="form-control" id="dateFrom">
-            </div>
+                <label>Date from</label>
+                <vue-datepicker-local :local="local" v-model="linkId.dateFrom" />
+            </div><label>Date from</label>
             <div class="form-group">
-                <label for="dateTo">Date from</label>
-                <input type="text" v-model="linkId.dateTo" class="form-control" id="dateTo">
+                <label>Date to</label>
+                <vue-datepicker-local :local="local" v-model="linkId.dateTo" />
             </div>
             <button type="submit" class="btn btn-secondary">Submit</button>
         </form>
@@ -19,7 +19,7 @@
 </template>
 <script>
     import * as links from '../../services/LinksService'
-
+    import VueDatepickerLocal from 'vue-datepicker-local'
     export default{
         data:function () {
             return{
@@ -29,26 +29,23 @@
                     dateFrom:null,
                     dateTo:null,
                     _id:null
-                }
+                },
+                local: this.$store.state.dateLocal
             }
+        },
+        components:{
+            VueDatepickerLocal
         },
         name: 'edit-link',
         methods:{
             onSubmit(wordFind, id, dateFrom, dateTo){
                 links.updateLink(wordFind, id, dateFrom, dateTo)
                 this.$router.push({name: 'links-all'});//
-            },
-            showOne: function (id) {
-                links.findLink(id)
-                        .then(res =>{
-                        this.linkId = res.data
-                })
-                .catch (err =>{err})
             }
         },
           mounted(){
              links.findLink(this.id)
-                 .then(res =>{
+                  .then(res =>{
                  this.linkId = res.data
                  })
              .catch(err=>{err})

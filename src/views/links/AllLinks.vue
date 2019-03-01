@@ -40,15 +40,14 @@
                 }
             }
         },
-       name: 'all-links',
+        name: 'all-links',
         mounted (){
              links.getLinks()
-                 .then(res => {
+                  .then(res => {
                     this.links = res.data
-            })
-            .catch(err=>{console.log(err)})
+                  })
+                  .catch(err=>{console.log(err)})
         },
-
         methods:{
             async deleteLink(id){
                 await links.deleteLink(id)
@@ -57,7 +56,7 @@
                             this.links = res.data
                             })
             }
-    }
+        }
     }
 </script>
 

@@ -28,3 +28,6 @@ form.custom-form{
     display: flex;
     flex-wrap: wrap;
 }
+.item-list .card{
+    width: 100%!important;
+}
