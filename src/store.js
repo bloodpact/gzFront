@@ -12,7 +12,6 @@ export default new Vuex.Store({
     gzUrl:'http://zakupki.gov.ru/epz/order/quicksearch/rss',
     userId:null,
     userName:null,
-    dates:true,
     dateLocal:{
         dow: 0, // Sunday is the first day of the week
         hourTip: 'Select Hour', // tip of select hour

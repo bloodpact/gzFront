@@ -4,7 +4,7 @@
              :key="link._id"
              :index="index"
              style="width: 18rem;">
-            <div class="card-body">
+            <div class="card-body" v-if="links !== null">
                 <h5  class="card-title">{{link.title._text}}</h5>
                 <p v-html="link.description._text" class="card-text"></p>
                 <p class="card-text">{{link.link._text}}</p>
@@ -18,25 +18,23 @@
 </template>
 <script>
     import * as links from '../../services/LinksService'
+    import moment from 'moment'
     export default{
         data:function () {
             return{
                 links:null,
-                dates: this.$store.state.dates,
                 from:null,
                 to:null
             }
         },
         name: 'result',
         mounted (){
-//            if(this.dates !== false){
-//                this.from = '20.02.2019'
-//                this.to = '21.02.21019'
-//            }
+            this.from =  (moment(new Date()).subtract(1, 'days')).format("DD.MM.YYYY");
+            this.to =  (moment(new Date())).format("DD.MM.YYYY");
             links.findTenders(this.from, this.to)
                     .then(res =>{
-                    console.log(res)
-                    this.links = res.data
+                //in response from gz is empty(null) filter it
+                this.links = res.data.filter(el => el !==null)
             })
         }
     }
