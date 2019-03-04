@@ -24,6 +24,9 @@ form.custom-form{
 .card.custom{
     position: inherit;
 }
+.custom.result{
+    text-align: left;
+}
 .card-elements{
     display: flex;
     flex-wrap: wrap;
@@ -31,3 +34,4 @@ form.custom-form{
 .item-list .card{
     width: 100%!important;
 }
+
