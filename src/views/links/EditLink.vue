@@ -9,14 +9,17 @@
                 <input type="checkbox" class="form-check-input"  v-model="linkId.check24" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Last 24 hours</label>
             </div>
-            <div class="form-group">
-                <label>Date from</label>
-                <vue-datepicker-local :local="local" v-model="linkId.dateFrom" />
-            </div><label>Date from</label>
-            <div class="form-group">
-                <label>Date to</label>
-                <vue-datepicker-local :local="local" v-model="linkId.dateTo" />
+            <div v-if="!linkId.check24">
+                <div class="form-group">
+                    <label>Date from</label>
+                    <vue-datepicker-local :local="local" v-model="linkId.dateFrom" />
+                </div><label>Date from</label>
+                <div class="form-group">
+                    <label>Date to</label>
+                    <vue-datepicker-local :local="local" v-model="linkId.dateTo" />
+                </div>
             </div>
+
             <button type="submit" class="btn btn-secondary">Submit</button>
         </form>
     </div>
@@ -52,7 +55,7 @@
              links.findLink(this.id)
                   .then(res =>{
                  this.linkId = res.data
-              console.log(this.linkId)
+                   console.log(this.linkId)
                  })
              .catch(err=>{err})
         }

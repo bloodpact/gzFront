@@ -1,11 +1,11 @@
 import store from '../store'
 import {axiosSetup}  from './RequestService'
-import * as auth from './AuthService'
 
 /* eslint-disable */
 export async function getLinks() {
-    return await axiosSetup().get('links', {params: { user: store.state.userId}})
+    return await axiosSetup().get("links", {params: { user: store.state.userId}})
 }
+
 export function createLinks(wordFind, user, dateFrom, dateTo, check24) {
     let data = {
         wordFind: wordFind,
@@ -38,5 +38,11 @@ export function findTenders(from, to) {
         user: store.state.userId,
         from: from,
         to: to
+    }})
+}
+export async function sendMail(links) {
+    return await axiosSetup().get('results/mail', {params: {
+        user: store.state.userName,
+        links:links
     }})
 }

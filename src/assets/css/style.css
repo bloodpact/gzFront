@@ -24,7 +24,8 @@ form.custom-form{
 .card.custom{
     position: inherit;
 }
-.custom.result{
+.result{
+    position: inherit;
     text-align: left;
 }
 .card-elements{
