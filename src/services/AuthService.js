@@ -26,13 +26,7 @@ export function register(name, email, password, password2) {
         password: password,
         password2:password2
     };
-    axiosSetup().post('/users/register', data)
-        .then((response) => {
-            console.log(response)
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
+    return axiosSetup().post('/users/register', data)
 }
 
 export function setToken(token) {

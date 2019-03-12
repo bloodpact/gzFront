@@ -11,16 +11,16 @@
                             <h5  class="card-title">{{link.title._text}}</h5>
                             <p v-html="link.description._text" class="card-text"></p>
                             <a class="card-text" :href="link.link._text">{{link.title._text}}</a>
-                            <button v-on:click="addLink(link.link._text)" class="btn btn-success">Add</button>
+                            <button v-on:click="addLink(link)" class="btn btn-success">Add</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <ul class="list-group" v-for="link in choosenLinks">
-                    <li class="list-group-item">{{link}}</li>
+                    <li class="list-group-item"><a :href="link.link._text">{{link.title._text}}</a></li>
                 </ul>
-                <button v-on:click="sendMail(choosenLinks)" class="btn btn-success">Send</button>
+                <button v-on:click="sendMail()" class="btn btn-success">Send</button>
             </div>
         </div>
     </div>
@@ -37,7 +37,8 @@
                 links:null,
                 from:null,
                 to:null,
-                choosenLinks:[]
+                choosenLinks:[],
+                mailLinks:[]
             }
         },
         name: 'result',
@@ -56,10 +57,10 @@
         methods:{
             addLink: function (link) {
                this.choosenLinks.push(link)
+               this.mailLinks.push(link.link._text)
             },
-            sendMail: function (choosenLinks) {
-                console.log(choosenLinks)
-                links.sendMail(choosenLinks)
+            sendMail: function () {
+                links.sendMail(this.mailLinks)
             }
         }
     }

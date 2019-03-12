@@ -19,6 +19,7 @@
             </div>
             <button type="submit" class="btn btn-secondary">Submit</button>
         </form>
+        <p>{{errorMsg}}</p>
     </div>
 </template>
 
@@ -30,7 +31,8 @@
                 name:'',
                 email:'',
                 password:'',
-                password2:''
+                password2:'',
+                errorMsg:null
             }
         },
         name: 'login',
@@ -38,7 +40,13 @@
             onSubmit: function (e) {
                 e.preventDefault();
                 auth.register(this.name, this.email, this.password, this.password2)
-                this.$router.push({name: 'links-all'})
+                        .then((response) => {
+                        this.$router.push({name: 'links-all'});
+                         })
+                        .catch((err)=>{
+                            this.errorMsg = err.response.data[0].msg
+                            this.$router.push({name: 'register'});
+                        })
             }
         }
     }

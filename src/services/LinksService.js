@@ -41,7 +41,7 @@ export function findTenders(from, to) {
     }})
 }
 export async function sendMail(links) {
-    return await axiosSetup().get('results/mail', {params: {
+    return await axiosSetup().get('email', {params: {
         user: store.state.userName,
         links:links
     }})
