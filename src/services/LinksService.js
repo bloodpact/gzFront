@@ -8,11 +8,11 @@ export async function getLinks() {
 
 export function createLinks(wordFind, user, dateFrom, dateTo, check24) {
     let data = {
-        wordFind: wordFind,
+        wordFind,
         id: user,
-        dateFrom: dateFrom,
-        dateTo: dateTo,
-        check24: check24
+        dateFrom,
+        dateTo,
+        check24
     };
     return axiosSetup().post('links', data)
         .catch((err)=>{
@@ -36,13 +36,13 @@ export  function findLink(id) {
 export function findTenders(from, to) {
     return  axiosSetup().get("results", {params: {
         user: store.state.userId,
-        from: from,
-        to: to
+        from,
+        to
     }})
 }
 export async function sendMail(links) {
     return await axiosSetup().get('email', {params: {
         user: store.state.userName,
-        links:links
+        links
     }})
 }

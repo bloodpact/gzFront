@@ -33,13 +33,8 @@
                         Login
                     </router-link>
                 </li>
-                <li class="nav-item" v-if="!$store.state.isLoggedIn">
-                    <router-link to="/register" class="nav-link" exact>
-                        Register
-                    </router-link>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">{{this.$store.state.userName ? this.$store.state.userName : 'User'}}</a>
+                <li class="nav-item nav-link">
+                    {{this.$store.state.userName ? this.$store.state.userName : 'Did not logged in'}}
                 </li>
             </ul>
         </div>
