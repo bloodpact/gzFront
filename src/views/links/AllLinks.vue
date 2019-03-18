@@ -12,6 +12,10 @@
                  :key="link._id"
                  :index="index"
                  style="width: 18rem;">
+                <transition
+                        enter-active-class="animated lightSpeedIn"
+                        leave-active-class="animated lightSpeedIn"
+                        appear>
                 <div class="card-body">
                     <h5 class="card-title">{{link.wordFind}}</h5>
                     <p class="card-text">{{link.link}}</p>
@@ -22,6 +26,7 @@
                     </router-link>
                     <button v-on:click="deleteLink(link._id)"  class="btn btn-danger">Delete</button>
                 </div>
+                </transition>
             </div>
             </div>
     </div>

@@ -1,5 +1,10 @@
 <template>
     <div>
+        <transition
+                enter-active-class="animated lightSpeedIn"
+                leave-active-class="animated lightSpeedOut"
+                appear>
+        >
         <form class="custom-form" v-on:submit="onSubmit(linkId.wordFind, linkId._id, linkId.dateFrom, linkId.dateTo, linkId.check24)">
             <div class="form-group">
                 <label for="wordFind">Word</label>
@@ -13,7 +18,7 @@
                 <div class="form-group">
                     <label>Date from</label>
                     <vue-datepicker-local :local="local" v-model="linkId.dateFrom" />
-                </div><label>Date from</label>
+                </div>
                 <div class="form-group">
                     <label>Date to</label>
                     <vue-datepicker-local :local="local" v-model="linkId.dateTo" />
@@ -22,6 +27,7 @@
 
             <button type="submit" class="btn btn-secondary">Submit</button>
         </form>
+        </transition>
     </div>
 </template>
 <script>
@@ -53,11 +59,10 @@
         },
           mounted(){
              links.findLink(this.id)
-                  .then(res =>{
-                 this.linkId = res.data
-                   console.log(this.linkId)
-                 })
-             .catch(err=>{err})
+                  .then(res => {
+                     this.linkId = res.data
+                     })
+                 .catch(err=>{err})
         }
     }
 </script>

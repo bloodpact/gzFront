@@ -1,4 +1,7 @@
-
+.screenCenter{
+    bottom: 50%;
+    left: 50%;
+}
 li.nav-item a{
     text-transform: uppercase;
     letter-spacing:  2px;
@@ -21,6 +24,15 @@ form.custom-form{
     margin-right: auto;
     margin-left: auto;
 }
+.custom{
+    font-size:  0.8rem;
+}
+.position-fixed.custom{
+    top: 60px;
+    bottom:16px;
+    position:fixed;
+    overflow-x:hidden;
+}
 .card.custom{
     position: inherit;
 }
@@ -35,4 +47,16 @@ form.custom-form{
 .item-list .card{
     width: 100%!important;
 }
-
+.slide-fade-enter-active, .slide-fade-leave-active{
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to{
+    transform: translateX(10px);
+    opacity: 0;
+}
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+}

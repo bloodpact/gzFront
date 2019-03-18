@@ -9,6 +9,10 @@
                 <input type="checkbox" class="form-check-input"  v-model="check24" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Last 24 hours</label>
             </div>
+            <transition
+                    enter-active-class="animated bounceIn"
+                    leave-active-class="animated bounceOut"
+                    appear>
             <div v-if="!check24">
                 <div class="form-group">
                     <label>Date from</label>
@@ -19,6 +23,7 @@
                     <vue-datepicker-local :local="local" v-model="dateTo" />
                 </div>
             </div>
+            </transition>
             <button type="submit" class="btn btn-secondary">Submit</button>
         </form>
     </div>

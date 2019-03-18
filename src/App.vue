@@ -2,7 +2,10 @@
   <div id="app">
     <Navbar/>
     <Footer/>
-    <router-view/>
+    <transition name="fade" appear mode="out-in">
+      <router-view/>
+    </transition>
+
   </div>
 </template>
 <script>

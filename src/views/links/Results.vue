@@ -2,33 +2,57 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8 result">
+                <transition
+                        enter-active-class="animated shake"
+                        leave-active-class="animated lightSpeedOut"
+                        appear>
+                    <div class="position-fixed screenCenter" v-if="errors!=null">
+                        <p class="alert alert-danger">{{errors}}</p>
+                    </div>
+                </transition>
                 <div class="card-elements item-list">
                     <div class="card m-2 custom" v-for="(link, index) in links"
                          :key="link._id"
                          :index="index"
                          style="width: 18rem;">
+                        <transition name="slide-fade" appear>
                         <div class="card-body">
                             <h5  class="card-title">{{link.title._text}}</h5>
                             <p v-html="link.description._text" class="card-text"></p>
                             <a class="card-text" :href="link.link._text">{{link.title._text}}</a>
-                            <button v-on:click="addLink(link)" class="btn btn-success">Add</button>
+                            <br>
+                            <button @click="addLink(link)" class="btn btn-success">Add</button>
                         </div>
+                        </transition>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <ul class="list-group" v-for="link in choosenLinks">
-                    <li class="list-group-item"><a :href="link.link._text">{{link.title._text}}</a></li>
-                </ul>
-                <button v-on:click="sendMail()" class="btn btn-success">Send</button>
+
+            <div class="col-sm-4 " v-if="choosenLinks.length > 0">
+                <div class="position-fixed m-2 custom">
+                    <ul class="list-group">
+                        <transition-group name="slide-fade" appear>
+                            <li
+                                    v-for="(link, index) in choosenLinks"
+                                    class="list-group-item"
+                                    :key="link.link._text">
+                                <a :href="link.link._text">{{link.title._text}}</a>
+                                <br>
+                                <button @click="removeLink(index)" class="btn btn-danger">Remove</button>
+                            </li>
+                        </transition-group>
+
+                    </ul>
+                    <button v-on:click="sendMail()" class="btn btn-success">Send</button>
+                </div>
             </div>
+
         </div>
     </div>
 
 </template>
 <script>
     import * as links from '../../services/LinksService'
-//    import * as viewHelper from '../../services/ViewService'
     import _ from 'lodash'
     import moment from 'moment'
     export default{
@@ -38,7 +62,8 @@
                 from:null,
                 to:null,
                 choosenLinks:[],
-                mailLinks:[]
+                mailLinks:[],
+                errors:null
             }
         },
         name: 'result',
@@ -55,11 +80,23 @@
             })
         },
         methods:{
-            addLink: function (link) {
-               this.choosenLinks.push(link)
-               this.mailLinks.push(link.link._text)
+            addLink(link) {
+                if(_.includes(this.mailLinks, link.link._text)){
+                   this.errors = 'already added'
+                }else{
+                    this.errors = null
+                    this.choosenLinks.push(link)
+                    this.mailLinks.push(link.link._text)
+                }
+
+
             },
-            sendMail: function () {
+            removeLink(index) {
+                this.choosenLinks.splice(index, 1)
+                this.mailLinks.splice(index, 1)
+                console.log(this.mailLinks)
+            },
+            sendMail(){
                 links.sendMail(this.mailLinks)
             }
         }
