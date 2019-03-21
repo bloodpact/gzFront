@@ -29,8 +29,8 @@
     </div>
 </template>
 <script>
-    import * as links from '../../services/LinksService'
     import VueDatepickerLocal from 'vue-datepicker-local'
+    import { mapActions } from 'vuex'
     export default{
         data:function () {
             return{
@@ -46,10 +46,19 @@
         },
         name: 'login',
         methods:{
-            onSubmit() {
-                links.createLinks(this.wordFind, this.$store.state.userId, this.dateFrom, this.dateTo, this.check24);
-                this.$router.push({name: 'links-all'});
-            }
-        }
+                ...mapActions(['addLink']),
+                onSubmit() {
+                    let payload = {
+                        wordFind: this.wordFind,
+                        user: this.$store.state.userId,
+                        dateFrom: this.dateFrom,
+                        dateTo: this.dateTo,
+                        check24: this.check24
+                    }
+                    this.$store.dispatch('addLink', payload)
+                    this.addLink(this.wordFind, this.$store.state.userId, this.dateFrom, this.dateTo, this.check24);
+                        this.$router.push({name: 'links-all'});
+                    }
+                }
     }
 </script>

@@ -1,6 +1,7 @@
 <template>
+
     <div class="container">
-        <div class="row">
+        <div v-if="!loading" class="row">
             <div class="col-sm-8 result">
                 <transition
                         enter-active-class="animated shake"
@@ -27,7 +28,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-sm-4 " v-if="choosenLinks.length > 0">
                 <div class="position-fixed m-2 custom">
                     <ul class="list-group">
@@ -46,7 +46,9 @@
                     <button v-on:click="sendMail()" class="btn btn-success">Send</button>
                 </div>
             </div>
-
+        </div>
+        <div v-if="loading" class="loader">
+            <vue-loading type="bars" color="#5fdd72" :size="{ width: '150px', height: '150px' }"></vue-loading>
         </div>
     </div>
 
@@ -54,6 +56,7 @@
 <script>
     import * as links from '../../services/LinksService'
     import _ from 'lodash'
+    import { VueLoading } from 'vue-loading-template'
     import moment from 'moment'
     export default{
         data:function () {
@@ -63,41 +66,49 @@
                 to:null,
                 choosenLinks:[],
                 mailLinks:[],
-                errors:null
+                errors:null,
+                loading:false
             }
+        },
+        components:{
+            VueLoading
         },
         name: 'result',
         mounted (){
             this.from = (moment(new Date()).subtract(1, 'days')).format("DD.MM.YYYY");
             this.to =  (moment(new Date())).format("DD.MM.YYYY");
+            this.loading = true
             links.findTenders(this.from, this.to)
                     .then(res =>{
                 //in response from gz is empty(null) filter it
                 const links = res.data.filter(el => el !==null)
-            //remove duplicates
-            const filtered = _.uniqBy(links, 'title._text')
-            this.links = filtered
-            })
+                //remove duplicates
+                const filtered = _.uniqBy(links, 'title._text')
+                this.links = filtered
+                this.loading = false
+                })
         },
         methods:{
             addLink(link) {
                 if(_.includes(this.mailLinks, link.link._text)){
-                   this.errors = 'already added'
+                    this.errors = 'already added'
                 }else{
                     this.errors = null
                     this.choosenLinks.push(link)
                     this.mailLinks.push(link.link._text)
                 }
-
-
             },
             removeLink(index) {
                 this.choosenLinks.splice(index, 1)
                 this.mailLinks.splice(index, 1)
-                console.log(this.mailLinks)
             },
             sendMail(){
                 links.sendMail(this.mailLinks)
+                        .then(()=>{
+                    this.choosenLinks =[]
+                    this.mailLinks =[]
+                }
+               )
             }
         }
     }

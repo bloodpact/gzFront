@@ -1,17 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as auth from './services/AuthService'
-
+import * as links from './services/LinksService'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     isLoggedIn:false,
-    url:'http://localhost:5000',
+    url:'https://quiet-forest-51009.herokuapp.com/',
     gzUrl:'http://zakupki.gov.ru/epz/order/quicksearch/rss',
     userId:null,
     userName:null,
+    links:[],
     dateLocal:{
         dow: 0, // Sunday is the first day of the week
         hourTip: 'Select Hour', // tip of select hour
@@ -25,6 +27,9 @@ export default new Vuex.Store({
         submitTip: 'confirm'
     }  
   },
+  getters:{
+    allLinks:(state) => state.links
+  },
   mutations: {
       authenticate(state){
           state.isLoggedIn = auth.isLoggedIn()
@@ -35,11 +40,26 @@ export default new Vuex.Store({
               state.userName = null
               state.userId = null
           }
-      } 
+      },
+      setLinks:(state, links) => {state.links = links},
+      newLink:(state, link) => {state.links.push(link)},
+      delLink:(state, id) => {state.links.splice(id ,1)}
   },
   actions: {
-      authenticate(context){
-         context.commit('authenticate')
-     }
+      authenticate({ commit }){
+         commit('authenticate')
+     },
+     async getlinks({ commit }){
+         const res = await links.getLinks()
+         commit('setLinks', res.data)
+     },
+     async addLink({ commit }, payload){
+         const res = await links.createLinks(payload)
+         commit('newLink', res.data)
+      },
+     async deleteLink({ commit }, id){
+         const res = await links.deleteLink(id)
+         commit('delLink', id)
+      }
   }
 })

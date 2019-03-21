@@ -27,3 +27,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+Login zakupkigov.grabber@mail.ru
+Pass zakupkigov.grabber@mail.ru

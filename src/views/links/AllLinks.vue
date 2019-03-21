@@ -8,7 +8,7 @@
             </li>
         </ul>
         <div class="card-elements">
-            <div class="card m-2 custom" v-for="(link, index) in links"
+            <div class="card m-2 custom" v-for="(link, index) in allLinks"
                  :key="link._id"
                  :index="index"
                  style="width: 18rem;">
@@ -32,11 +32,10 @@
     </div>
 </template>
 <script>
-    import * as links from '../../services/LinksService'
+    import { mapGetters, mapActions } from 'vuex'
     export default{
         data:function () {
             return{
-                links:null,
                 linkId:{
                     wordFind:null,
                     dateFrom:null,
@@ -45,23 +44,14 @@
                 }
             }
         },
+        computed: mapGetters(['allLinks']),
         name: 'all-links',
         mounted (){
-             links.getLinks()
-                  .then(res => {
-                    this.links = res.data
-                  })
-                  .catch(err=>{console.log(err)})
+            this.getlinks()
         },
         methods:{
-            async deleteLink(id){
-                await links.deleteLink(id)
-                await links.getLinks()
-                           .then(res => {
-                            this.links = res.data
-                            })
-            }
-        }
+                ...mapActions(['getlinks' ,'deleteLink'])
+    }
     }
 </script>
 

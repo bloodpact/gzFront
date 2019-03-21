@@ -1,7 +1,7 @@
 import store from '../store'
 import jwt from 'jsonwebtoken'
 import {axiosSetup}  from './RequestService'
-/* eslint-disable */
+
 export function isLoggedIn() {
     const token = localStorage.getItem('token');
     return token != null;

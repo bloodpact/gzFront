@@ -6,21 +6,14 @@ export async function getLinks() {
     return await axiosSetup().get("links", {params: { user: store.state.userId}})
 }
 
-export function createLinks(wordFind, user, dateFrom, dateTo, check24) {
-    let data = {
-        wordFind,
-        id: user,
-        dateFrom,
-        dateTo,
-        check24
-    };
-    return axiosSetup().post('links', data)
+export async function createLinks(data) {
+        return await axiosSetup().post('links', data)
         .catch((err)=>{
-            console.log(err)
+            console.log(err.response)
         })
 }
-export  function updateLink(wordFind, id, dateFrom, dateTo, check24) {
-    return   axiosSetup().put("links/"+id,
+export async function updateLink(wordFind, id, dateFrom, dateTo, check24) {
+    return await axiosSetup().put("links/"+id,
         {wordFind,
             id,
             dateFrom,
