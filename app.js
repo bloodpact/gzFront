@@ -7,4 +7,6 @@ app.get('*', function (req, res) {
     res.sendFile(__dirname + '/dist/index.html')
 })
 const port = process.env.PORT || 80;
-app.listen(port);
+app.listen(port, () => {
+    console.log(`server is on port ${port}`)
+});

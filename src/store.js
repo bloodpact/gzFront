@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as auth from './services/AuthService'
 import * as links from './services/LinksService'
-import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -58,7 +57,7 @@ export default new Vuex.Store({
          commit('newLink', res.data)
       },
      async deleteLink({ commit }, id){
-         const res = await links.deleteLink(id)
+         await links.deleteLink(id)
          commit('delLink', id)
       }
   }
