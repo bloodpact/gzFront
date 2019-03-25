@@ -55,7 +55,7 @@
                         dateTo: this.dateTo,
                         check24: this.check24
                     }
-                    this.$store.dispatch('addLink', payload)
+                    this.$store.dispatch('addLink', payload);
                     this.addLink(this.wordFind, this.$store.state.userId, this.dateFrom, this.dateTo, this.check24);
                         this.$router.push({name: 'links-all'});
                     }

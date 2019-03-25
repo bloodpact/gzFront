@@ -77,9 +77,9 @@
         mounted (){
             this.from = (moment(new Date()).subtract(1, 'days')).format("DD.MM.YYYY");
             this.to =  (moment(new Date())).format("DD.MM.YYYY");
-            this.loading = true
+            this.loading = true;
             links.findTenders(this.from, this.to)
-                    .then(res =>{
+                    .then(res => {
                 //in response from gz is empty(null) filter it
                 const links = res.data.filter(el => el !==null)
                 //remove duplicates
@@ -104,10 +104,10 @@
             },
             sendMail(){
                 links.sendMail(this.mailLinks)
-                        .then(()=>{
-                    this.choosenLinks =[]
-                    this.mailLinks =[]
-                }
+                        .then(() => {
+                        this.choosenLinks =[]
+                        this.mailLinks =[]
+                    }
                )
             }
         }

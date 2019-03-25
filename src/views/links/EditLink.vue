@@ -54,10 +54,10 @@
         methods:{
             onSubmit(wordFind, id, dateFrom, dateTo, check24){
                 links.updateLink(wordFind, id, dateFrom, dateTo, check24)
-                this.$router.push({name: 'links-all'});//
+                this.$router.push({name: 'links-all'});
             }
         },
-          mounted(){
+        mounted(){
              links.findLink(this.id)
                   .then(res => {
                      this.linkId = res.data

@@ -31,13 +31,13 @@ export default new Vuex.Store({
   },
   mutations: {
       authenticate(state){
-          state.isLoggedIn = auth.isLoggedIn()
+          state.isLoggedIn = auth.isLoggedIn();
           if (state.isLoggedIn){
-              state.userName = auth.getUsername()
-              state.userId = auth.getUserId()
+              state.userName = auth.getUsername();
+              state.userId = auth.getUserId();
           } else {
-              state.userName = null
-              state.userId = null
+              state.userName = null;
+              state.userId = null;
           }
       },
       setLinks:(state, links) => {state.links = links},
@@ -49,16 +49,16 @@ export default new Vuex.Store({
          commit('authenticate')
      },
      async getlinks({ commit }){
-         const res = await links.getLinks()
-         commit('setLinks', res.data)
+         const res = await links.getLinks();
+         commit('setLinks', res.data);
      },
      async addLink({ commit }, payload){
-         const res = await links.createLinks(payload)
+         const res = await links.createLinks(payload);
          commit('newLink', res.data)
-      },
+     },
      async deleteLink({ commit }, id){
-         await links.deleteLink(id)
-         commit('delLink', id)
-      }
+         await links.deleteLink(id);
+         commit('delLink', id);
+     }
   }
 })

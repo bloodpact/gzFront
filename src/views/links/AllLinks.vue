@@ -51,7 +51,7 @@
         },
         methods:{
                 ...mapActions(['getlinks' ,'deleteLink'])
-    }
+        }
     }
 </script>
 

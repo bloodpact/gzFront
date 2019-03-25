@@ -9,8 +9,7 @@ import CreateLink from './views/links/CreateLink.vue'
 import Results from './views/links/Results.vue'
 import * as auth from './services/AuthService'
 
-Vue.use(Router)
-
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -57,10 +56,10 @@ export default new Router({
       path: '/results',
       name: 'results',
       component: Results,
-      beforeEnter:(to, from, next)=>{
+      beforeEnter:(to, from, next) => {
           if (auth.isLoggedIn()){
               next()
-          }else{
+          } else {
               next('/login')
           }
       }
@@ -69,10 +68,10 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login,
-      beforeEnter:(to, from, next)=>{
+      beforeEnter:(to, from, next) => {
           if (!auth.isLoggedIn()){
               next()
-          }else{
+          } else {
               next('/')
           }
       }
