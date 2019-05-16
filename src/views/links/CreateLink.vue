@@ -57,7 +57,7 @@
                     }
                     this.$store.dispatch('addLink', payload);
                     this.addLink(this.wordFind, this.$store.state.userId, this.dateFrom, this.dateTo, this.check24);
-                        this.$router.push({name: 'links-all'});
+                    this.$router.push({name: 'links-all'});
                     }
                 }
     }
