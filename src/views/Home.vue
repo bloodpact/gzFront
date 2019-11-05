@@ -16,9 +16,6 @@
             </div>
         </div>
         </div>
-
-
-
 </template>
 
 <script>
@@ -45,6 +42,6 @@
                         this.loading = false
                     })
                     .catch(err=>{err})
-                    }
+        }
     }
 </script>
