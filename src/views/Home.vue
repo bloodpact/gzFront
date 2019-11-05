@@ -1,9 +1,9 @@
 <template>
     <div class="home">
-        <Navbar/>
+         <Navbar/>
         <div class="container result">
             <div v-if="!loading" class="row">
-                <p>There are 10 last news from zakupki.gov if there any information about maintaince works it may cause errors in service</p>
+                <p>There are 10 last news from zakupki.gov if there any information about maintains works it may cause errors in service</p>
                 <div class="alert alert-secondary result" role="alert" v-for="(news, index) in allNews"
                      :key="news._id"
                      :index="index">

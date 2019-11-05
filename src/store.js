@@ -9,7 +9,7 @@ export default new Vuex.Store({
   state: {
     isLoggedIn:false,
     url:'https://quiet-forest-51009.herokuapp.com/',
-    gzUrl:'http://zakupki.gov.ru/epz/order/quicksearch/rss',
+    gzUrl:'http://zakupki.gov.ru/epz/order/extendedsearch/rss.html?',
     userId:null,
     userName:null,
     links:[],

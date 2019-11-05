@@ -14,7 +14,7 @@
                 <input type="checkbox" class="form-check-input"  v-model="linkId.check24" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Last 24 hours</label>
             </div>
-            <div v-if="!linkId.check24">
+            <div v-show="!linkId.check24">
                 <div class="form-group">
                     <label>Date from</label>
                     <vue-datepicker-local :local="local" v-model="linkId.dateFrom" />
